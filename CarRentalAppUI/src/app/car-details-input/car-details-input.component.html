@@ -1,0 +1,54 @@
+<app-admin-header></app-admin-header>
+
+<form [formGroup]="AddCar" (ngSubmit)="onSubmit()" class="border p-3">
+    <div class="row g-0">
+        <div class="col text-center p-2 mb-3 bg-light">
+            <span class="fs-3">Add Car</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col mb-3">
+            <label for="maker" class="form-label">Maker</label>
+            <input type="text" class="form-control" id="maker" formControlName="maker">
+            <div class="form-text text-danger" *ngIf="AddCar.get('maker')?.hasError('required')">
+                Maker is required.
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mb-3">
+            <label for="model" class="form-label">Model</label>
+            <input type="text" class="form-control" id="model" formControlName="model">
+            <div class="form-text text-danger"  *ngIf="AddCar.get('model')?.hasError('required')">
+                Model is required.
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col mb-3">
+            <label for="rentalPrice" class="form-label">Rental Price</label>
+            <input type="text" class="form-control" id="rentalPrice" formControlName="rentalPrice">
+            <div class="form-text text-danger" *ngIf="AddCar.get('rentalPrice')?.hasError('required')">
+                Rental Price is required.
+            </div>
+           
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col mb-3">
+            <label for="carImage" class="form-label">Car Image</label>
+            <input type="text" class="form-control" id="carImage" formControlName="carImage">
+            <div class="form-text text-danger" *ngIf="AddCar.get('carImage')?.hasError('required')">
+                Car Image is required.
+            </div>
+        </div>
+    </div>
+
+    <div class="card-footer text-muted d-grid gap-2">
+        <button type="submit" class="btn btn-success">
+            Submit
+        </button>
+    </div>
+</form>

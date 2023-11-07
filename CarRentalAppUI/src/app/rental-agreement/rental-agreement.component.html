@@ -1,0 +1,32 @@
+<app-header></app-header>
+
+<div class="agreement-form">
+  <h2>Agreement Form</h2>
+  <div *ngFor="let user of storedUser">
+    <div class="card">
+      <div class="card-header text-center">
+        Rental Agreement
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <p><strong>ID:</strong> {{ user.userId }}</p>
+            <p><strong>Name:</strong> {{ user.name }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Phone Number:</strong> {{ user.phoneNumber }}</p>
+          </div>
+          <div class="col">
+            <p><strong>Address:</strong> {{ user.address }}</p>
+            <div></div>
+           
+          </div>
+        </div>
+        <div class="card-footer text-muted d-grid gap-2">
+          <button type="button" class="btn btn-outline-success">
+            Rent a Car
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

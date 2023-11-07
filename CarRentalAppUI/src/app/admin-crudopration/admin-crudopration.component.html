@@ -1,0 +1,28 @@
+<app-admin-header></app-admin-header>
+<div class="container mt-5">
+
+    <div class="container mt-5" *ngIf="!showRentalAgreement">
+        <button class="btn btn-success" routerLink="/cardetailsinput" >Add New Car</button> 
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-md-4" *ngFor="let list of CDetails; let i = index">
+                <div class="card mb-3">
+                    <img src="{{ list.carImage }}" class="card-img-top" alt="Car Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ list.maker }}</h5>
+                        <p class="card-text">{{ list.model }}</p>
+                    </div>
+
+                    <button class="btn btn-success" (click)="editCar(list)" routerLink="'/cardetailsinput'"
+                        [queryParams]="{ Jcar: JSON.stringify(list) }"> Update</button>
+                       
+                        <button class="btn btn-danger" (click)="DeleteCarDetails(list.vehicleId)" 
+                            > Delete</button>
+                    <!-- <button class="btn btn-danger" (click)="deleteCar(i)">Delete</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+</div>

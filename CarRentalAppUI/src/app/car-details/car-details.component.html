@@ -1,0 +1,116 @@
+<app-header></app-header>
+<br>
+<div class="container mt-5">
+  <!-- Add the search input field -->
+
+  <div class="container mt-5" *ngIf="!showRentalAgreement">
+    <form [formGroup]="searchForm">
+      <div class="form-group">
+
+        <input type="text" class="form-control" id="searchTerm" placeholder="Search" formControlName="searchTerm">
+      </div>
+    </form>
+    <br>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let list of CDetails">
+        <div class="card mb-3">
+          <img src="{{ list.carImage }}" class="card-img-top" alt="Car Image">
+          <div class="card-body">
+            <h5 class="card-title">{{ list.maker }}</h5>
+            <p class="card-text">{{ list.model }}</p>
+            <h6 class="card-subtitle mb-3 text-primary">{{ list.availabilityStatus ? 'Available' : 'Not Available' }}
+            </h6>
+            <h4 class="card-title text-muted">{{ list.rentalPrice | currency:'USD': 'symbol' }}</h4>
+
+          </div>
+          <div class="card-footer">
+
+            <button type="button" class="btn btn-success btn-block" (click)="RentCarDetailwithId(list.vehicleId)">
+              Rent a Car
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" *ngIf="showRentalAgreement">
+  <div class="container">
+    <div class="row">
+      <button class="btn btn-success" (click)="backToCarList()">Back To CarList</button>
+      <div class="col-12">
+      
+        <h2>Rental Agreement</h2>
+      </div>
+    </div>
+
+    <!-- Vehicle Information -->
+    <div class="row">
+      <div class="col-12">
+        <h4>Vehicle Information</h4>
+        <div class="card">
+          <div class="card-body">
+            <div class="row" *ngFor="let car of rentagreement">
+              <div class="col-md-4">
+                <img [src]="car.carImage" class="card-img-top" alt="Car Image">
+              </div>
+              <div class="col-md-8">
+                <h3 class="card-title">Vehicle ID: {{ car.vehicleId }}</h3>
+                <p class="card-text"><strong>Car Maker:</strong> {{ car.maker }}</p>
+                <p class="card-text"><strong>Car Model:</strong> {{ car.model }}</p>
+                <p class="card-text"><strong>Rental Price:</strong> {{ car.rentalPrice }}</p>
+                <p class="card-text"><strong>Availability Status:</strong> {{ car.availabilityStatus }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Customer Information -->
+    <div class="row">
+      <div class="col-12">
+        <h4>Customer Information</h4>
+        <div class="card">
+          <div class="row" *ngFor="let user of storedUser">
+            <div class="card-body">
+              <p class="card-text"><strong>ID:</strong> {{ user.userId }}</p>
+              <p class="card-text"><strong>Name:</strong> {{ user.name }}</p>
+              <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+              <p class="card-text"><strong>Phone Number:</strong> {{ user.phoneNumber }}</p>
+              <p class="card-text"><strong>Address:</strong> {{ user.address }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="container">
+      <form [formGroup]="SaveRentalAgreement" (ngSubmit)="onSaveRentalAgreement()" class="border p-3">
+        <div class="row mt-4">
+          <p class="text-danger">Please enter the date of this month as an integer at which you want to return the car.</p>
+          <input type="number" class="form-control" id="endDate" formControlName="endDate"
+            placeholder="Enter an integer between 1 and 31" required>
+          <div class="form-text text-danger" *ngIf="SaveRentalAgreement.get('endDate')?.hasError('required')">
+            End Date is required.
+          </div>
+          <div class="form-text text-danger" *ngIf="SaveRentalAgreement.get('endDate')?.hasError('min')">
+            End Date must be greater than or equal to 1.
+          </div>
+          <div class="form-text text-danger" *ngIf="SaveRentalAgreement.get('endDate')?.hasError('max')">
+            End Date must be less than or equal to 31.
+          </div>
+          <div class="col-12">
+            <br>
+            <button type="button" class="btn btn-primary" id="submitAgreement" (click)="onSaveRentalAgreement()"
+              routerLink="/userrentedcarlist">Submit Agreement</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    
+    
+  </div>
+</div>
